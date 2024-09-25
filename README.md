@@ -38,3 +38,12 @@ Testing file B result
 ```
 hash output: 4e3c56a4ec09bcd7
 ```
+### Algorithm speed test (Horizontal - Lines hashed, Vertical - Time (Microseconds))
+![image](https://github.com/user-attachments/assets/32c227f6-9519-4c10-8c20-d3fcae2df1bf)
+
+
+
+
+
+
+
