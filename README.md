@@ -8,3 +8,6 @@ for(char in inputString) {
     hexHash = to_hex(hash.64bit_mask());
 }
 ```
+
+## Testing results
+### Test 1
