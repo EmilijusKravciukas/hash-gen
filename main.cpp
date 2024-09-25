@@ -29,27 +29,41 @@ int main() {
     std::cin >> userInput;
     
     if(userInput == "1") {
-        unsigned int linesReadNum = 1;
-        for(int i = 0; i < linesReadNum; i++) {
-            std::ifstream DF("input.txt");
-            std::string line;
-            std::string inputString;
-            unsigned int lineCounter = 0;
+        std::string inputFileName;
+        unsigned int linesReadNum = 0;
 
-            if(DF.is_open()) {
+        std::cout << "Enter the name of file to read from: " << std::endl;
+        std::cin >> inputFileName;
+
+        std::cout << "Enter the number of lines to read in the file, (0) stands for the whole file" << std::endl;
+        std::cin >> linesReadNum;
+
+        std::ifstream DF(inputFileName);
+        std::string line;
+        std::string inputString;
+        unsigned int lineCounter = 0;
+
+        if(DF.is_open()) {
+            if(linesReadNum == 0) {
+                while(std::getline(DF, line)) {
+                    inputString += line;
+                }
+            } else {
                 while(std::getline(DF, line) && lineCounter < linesReadNum) {
                     inputString += line;
                     lineCounter++;
                 }
             }
-
-            DF.close();
-
-            std::cout << "hash output: " << hexHashGenerate(inputString) << std::endl;
+            
         }
+
+        DF.close();
+
+        std::cout << "hash output: " << hexHashGenerate(inputString) << std::endl;
     } else if(userInput == "2") {
         std::cout << "Provide input string to be hashed: " << std::endl;
         std::cin >> userInput;
+
         std::cout << "hash output: " << hexHashGenerate(userInput) << std::endl;
     }
 
