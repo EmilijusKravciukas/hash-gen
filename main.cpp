@@ -2,13 +2,14 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <fstream>
 
 
-std::string hexHashGenerate(std::string inputString){
+std::string hexHashGenerate(std::string inputString) {
     unsigned int hash = 98317;
     unsigned int salt = 53;
 
-    for(char c : inputString){
+    for(char c : inputString) {
         hash = (hash ^ (salt * c)) + ((hash << 3) + c);
     }
 
@@ -20,9 +21,37 @@ std::string hexHashGenerate(std::string inputString){
 }
 
 int main() {
-    std::string inputString = "k";
+    std::cout << "Menu:" << std::endl <<
+            "(1) for file input" << std::endl <<
+            "(2) for console input" << std::endl;
+    
+    std::string userInput;
+    std::cin >> userInput;
+    
+    if(userInput == "1") {
+        unsigned int linesReadNum = 1;
+        for(int i = 0; i < linesReadNum; i++) {
+            std::ifstream DF("input.txt");
+            std::string line;
+            std::string inputString;
+            unsigned int lineCounter = 0;
 
-    std::cout << "hash output: " << hexHashGenerate(inputString) << std::endl;
+            if(DF.is_open()) {
+                while(std::getline(DF, line) && lineCounter < linesReadNum) {
+                    inputString += line;
+                    lineCounter++;
+                }
+            }
+
+            DF.close();
+
+            std::cout << "hash output: " << hexHashGenerate(inputString) << std::endl;
+        }
+    } else if(userInput == "2") {
+        std::cout << "Provide input string to be hashed: " << std::endl;
+        std::cin >> userInput;
+        std::cout << "hash output: " << hexHashGenerate(userInput) << std::endl;
+    }
 
     return 0;
 }
