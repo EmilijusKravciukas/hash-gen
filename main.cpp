@@ -3,19 +3,22 @@
 #include <sstream>
 #include <iomanip>
 #include <fstream>
+#include <cstdint>
 
 
 std::string hexHashGenerate(std::string inputString) {
-    unsigned int hash = 98317;
-    unsigned int salt = 53;
+    uint64_t hash = 98317;
+    uint64_t salt = 1099511628211ULL;
 
     for(char c : inputString) {
-        hash = (hash ^ (salt * c)) + ((hash << 3) + c);
+        hash = (hash ^ (salt * c)) + ((hash << 5) + c);
     }
 
     std::stringstream hexHash;
 
-    hexHash << std::hex << std::setw(8) << std::setfill('0') << (hash & 0xFFFFFFFF);
+    hash = (hash << 15 | hash >> 49);
+
+    hexHash << std::hex << (hash & 0xFFFFFFFFFFFFFFFFULL);
 
     return hexHash.str();
 }
