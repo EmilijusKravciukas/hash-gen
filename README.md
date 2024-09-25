@@ -1,6 +1,6 @@
 # hash-gen
 
-##Hashing algorithm pseudo-code:
+## Hashing algorithm pseudo-code:
 
 for(char in inputString) {
     hash = hash ^ (big_prime_number * char.bit) + (hash.bit_shift(5) + char.bit);
